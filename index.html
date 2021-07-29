@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>Document</title>
+</head>
+<style>
+    img{
+        border-radius: 50%
+    }
+    h1{
+        font-size:20px
+    }
+    p{
+        font-size:14px
+    }
+</style>
+<body Onload=" PromiseCallApi()">
+    <h1 id="Show">
+
+    </h1>
+    
+    
+    <script>
+       function PromiseCallApi(){
+            axios.get('https://reqres.in/api/users/5').then(res => {
+                console.log('res of Promise ', res.data.data);
+                let image = res.data.data.avatar;
+                let name = res.data.data.first_name;
+                let lastname = res.data.data.last_name;
+                let email = res.data.data.email;
+                document.getElementById('Show').innerHTML = `<img src="${image}">
+                                                               <h1>${name} ${lastname}</h1> 
+                                                               <p>${email}</p> 
+                                                              `
+                                       
+            }).catch(err => {
+                console.log('error',err)
+
+            })
+        }
+
+        async function AsyncAwait(){
+            try {
+                let response = await axios.get('https://reqres.in/api/users/5');
+                let image = response.data.data.avatar;
+                let name = response.data.data.first_name;
+                let lastname = response.data.data.last_name;
+                let email = response.data.data.email;
+                console.log('res of await :>> ', response.data.data);
+                document.getElementById('Show').innerHTML = `<img src="${image}">
+                                                               <h1>${name} ${lastname}</h1> 
+                                                               <p>${email}</p> 
+                                                              `
+            } catch (error) {
+                console.log('error',err)
+
+            }
+           
+                
+        }
+
+    </script>
+</body>
+</html>
